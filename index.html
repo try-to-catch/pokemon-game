@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pokemon Fight</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="body">
+      <header>
+        <img
+          class="logo"
+          title="Reset Game"
+          src="./assets/Pokemon_logo.png"
+          alt="Pokemon"
+        />
+      </header>
+      <div class="playground">
+        <div class="pokemon character">
+          <span class="lvl">Lv. 1</span>
+
+          <img
+            src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c325.png"
+            class="sprite"
+          />
+
+          <div class="details">
+            <h2 class="name" id="name-character">Pikachu</h2>
+            <div class="hp">
+              <div class="bar">
+                <div
+                  class="health"
+                  id="progressbar-character"
+                  style="width: 100%"
+                ></div>
+              </div>
+              <span class="text" id="health-character">100 / 100</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="control">
+          <button class="button" style="margin-right: 10px" id="btn-kick">
+            Thunder Jolt
+          </button>
+
+          <button class="button" id="btn-kick1">Serious Thunder Jolt</button>
+        </div>
+
+        <div class="pokemon enemy">
+          <span class="lvl">Lv. 1</span>
+
+          <img
+            src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/63f883a3-a17c-4ec7-b410-60058ef371e5/d72i00n-8aa99db6-8bf6-41b0-afd8-74e779e50258.png/v1/fill/w_1024,h_1113/charmander_vector_by_pokinee_d72i00n-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTExMyIsInBhdGgiOiJcL2ZcLzYzZjg4M2EzLWExN2MtNGVjNy1iNDEwLTYwMDU4ZWYzNzFlNVwvZDcyaTAwbi04YWE5OWRiNi04YmY2LTQxYjAtYWZkOC03NGU3NzllNTAyNTgucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.9wDuTinROqmwr5rhKAuuUAFBB1W1Kd8t8pNinuhNREg"
+            class="sprite"
+          />
+
+          <div class="details">
+            <h2 class="name" id="name-enemy">Charmander</h2>
+            <div class="hp">
+              <div class="bar">
+                <div
+                  class="health"
+                  id="progressbar-enemy"
+                  style="width: 100%"
+                ></div>
+              </div>
+              <span class="text" id="health-enemy">100 / 100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="catch_screen"></div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
