@@ -1,120 +1,70 @@
-const $btn = document.getElementById("btn-kick");
-const $btn1 = document.getElementById("btn-kick1");
-const character = {
+import Pokemon from "./pokemon.js";
+import random from "./utils.js";
+
+const player1 = new Pokemon({
   name: "Pikachu",
   type: "electric",
-  weakness: ["fighting", "water", "some"],
-  resistance: ["steel"],
-  hp: {
-    current: 100,
-    total: 100,
-  },
-  damageHP: 100,
-  elHP: document.getElementById("health-character"),
-  elProgressbar: document.getElementById("progressbar-character"),
-  renderHP: renderHP,
-  changeHP: changeHP,
-  renderHPLife: renderHPLife,
-  renderProgressbarHP: renderProgressbarHP,
-};
+  hp: 500,
+  selectors: "character",
+});
 
-const enemy = {
+const player2 = new Pokemon({
   name: "Charmander",
-  type: "electric",
-  weakness: ["fighting", "water", "some"],
-  resistance: ["steel"],
-  hp: {
-    current: 100,
-    total: 100,
-  },
-  damageHP: 100,
-  elHP: document.getElementById("health-enemy"),
-  elProgressbar: document.getElementById("progressbar-enemy"),
-  renderHP: renderHP,
-  changeHP: changeHP,
-  renderHPLife: renderHPLife,
-  renderProgressbarHP: renderProgressbarHP,
-};
+  type: "fire",
+  hp: 450,
+  selectors: "enemy",
+});
+
+const $btn = document.getElementById("btn-kick");
+const $btn1 = document.getElementById("btn-kick1");
+const $logs = document.querySelector("#logs");
+
+const clickCount1 = 6;
+const clickCount2 = 6;
 
 const init = () => {
-  let clickCount = 6;
+  $btn.innerText = `Thunder Jolt (${clickCount1})`;
+  $btn1.innerText = `Thunder Jolt (${clickCount2})`;
 
-  $btn.innerText = `Thunder Jolt (${clickCount})`;
-  $btn1.innerText = `Thunder Jolt (${clickCount})`;
+  $btn.addEventListener("click", function () {
+    if (clickCount1 > 0) {
+      player1.changeHP(random(60, 20), function (count) {
+        console.log("Some change after change HP", count);
+        console.log(generateLog(player1, player2, count));
 
-  const clickCounter1 = clickCounterFunc(clickCount);
-  const clickCounter2 = clickCounterFunc(clickCount);
+        const $p = document.createElement("p");
+        $p.innerText = generateLog(player1, player2, count);
+        $logs.appendChild($p);
+      });
 
-  $btn.addEventListener("click", () => {
-    clicksLeft1 = clickCounter1();
-    if (clicksLeft1 > 0) {
-      console.log("Kick");
-      character.changeHP(random(20));
-      enemy.changeHP(random(20));
-      $btn.innerText = `Thunder Jolt (${clicksLeft1 - 1})`;
+      player2.changeHP(random(60, 20), function (count) {
+        console.log("Some change after change HP", count);
+        console.log(generateLog(player2, player1, count));
+
+        const $p = document.createElement("p");
+        $p.innerText = generateLog(player2, player1, count);
+        $logs.appendChild($p);
+      });
+
+      $btn.innerText = `Thunder Jolt (${clickCounter1()})`;
     }
   });
 
-  $btn1.addEventListener("click", () => {
-    clicksLeft2 = clickCounter2();
-    if (clicksLeft2 > 0) {
-      enemy.changeHP(random(20));
-      $btn1.innerText = `Thunder Jolt (${clicksLeft2 - 1})`;
+  $btn1.addEventListener("click", function () {
+    if (clickCount2 > 0) {
+      player2.changeHP(random(60, 20), function (count) {
+        console.log("Some change after change HP", count);
+        console.log(generateLog(player2, player1, count));
+
+        const $p = document.createElement("p");
+        $p.innerText = generateLog(player2, player1, count);
+        $logs.appendChild($p);
+      });
+      $btn1.innerText = `Thunder Jolt (${clickCounter2()})`;
     }
   });
 
   console.log("Start Game!");
-
-  character.renderHP(character);
-  enemy.renderHP(enemy);
-};
-
-function renderHP() {
-  this.renderHPLife();
-  this.renderProgressbarHP();
-}
-
-function renderHPLife() {
-  this.elHP.innerText = this.hp.current + " / " + this.hp.total;
-}
-
-function renderProgressbarHP() {
-  this.elProgressbar.style.width = this.hp.current + "%";
-}
-
-const $logs = document.querySelector("#logs");
-
-function changeHP(count) {
-  this.hp.current -= count;
-
-  const log =
-    this === enemy
-      ? generateLog(this, character, count)
-      : generateLog(this, enemy, count);
-
-  const $p = document.createElement("p");
-  $p.innerText = log;
-  $logs.appendChild($p);
-
-  if (this.hp.current <= 0) {
-    this.hp.current = 0;
-    this.damageHP = 0;
-    this.renderHP(this);
-    $btn.disabled = true;
-    $btn1.disabled = true;
-
-    setTimeout(() => {
-      alert("Бедный " + this.name + " проиграл бой!");
-    }, 0);
-    return;
-  }
-
-  this.damageHP -= count;
-  this.renderHP();
-}
-
-const random = (num) => {
-  return Math.ceil(Math.random() * num);
 };
 
 const generateLog = (firstPerson, secondPerson, count) => {
@@ -140,5 +90,8 @@ const clickCounterFunc = (leftClicks) => {
     return leftClicks;
   };
 };
+
+const clickCounter1 = clickCounterFunc(clickCount1);
+const clickCounter2 = clickCounterFunc(clickCount2);
 
 init();
